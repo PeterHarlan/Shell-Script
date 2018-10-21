@@ -1,1 +1,8 @@
 # Shell-Script
+This project consists of modifying a C program which serves a shell interface that accepts user commands and then executes each command in a separate process.  A shell interface provides the user a prompt after which the next command is entered. The example below illustrates the prompt __osh>__ and the user’s next command: __cat prog.c.__ This command displays the file __prog.c__ on the terminal using the Unix __cat__ command.
+
+_osh> cat prog.c_
+
+See the flow chart for the logic behind the implementation of the shell script. In essence, the shell script prompts the user for a command, creates a child process with the fork() system call. It then alls the execvp() system call in the child. If "__&__" was entered into the command line as the last character, the parent process will not wait for the execvp() to finish in the child process. This means by default, all process commands executed with the shell script is a foreground command. 
+
+The shell script in the _finalShell.c_ file also supports a history feature. By entering 'r' (a single char input), the user will be able to re-execute the last command he/she entered into the the shell script. In addition, by entering 'r' x (where r is the single char input followed by any other single char input represented as x), the user will re-execute the latest command with x as its first letter. Thirdly, the history feature only stores the history of the latest 10 commands entered by the user. The user can view the list of historical commands with a signal input of <control><c>. This means that the user cannot exit the program with <control><c>. To exit the program, the user must enter the text, "exit". 
